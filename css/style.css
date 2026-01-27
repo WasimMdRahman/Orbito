@@ -1,0 +1,512 @@
+:root {
+    --bg-color: #050505;
+    --text-color: #e0e0e0;
+    --accent-color: #00f0ff;
+    --panel-bg: rgba(10, 10, 15, 0.75);
+    --panel-border: rgba(255, 255, 255, 0.1);
+    --font-main: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /* Lock viewport */
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 50%, #0a0a12 0%, #050505 100%);
+    color: var(--text-color);
+    font-family: var(--font-main);
+}
+
+#app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Background Video Layer */
+#info-background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 1.2s ease-in-out;
+}
+
+#info-background-layer.active {
+    opacity: 1;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    /* Subtle video visibility */
+}
+
+#bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 100%);
+}
+
+/* Canvas */
+#solar-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: grab;
+}
+
+#solar-canvas:active {
+    cursor: grabbing;
+}
+
+/* UI Layer */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to canvas */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Welcome Screen */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    /* Below app when app slides in, but initially app is hidden/above */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    transition: opacity 1s ease-in-out;
+}
+
+.welcome-content {
+    text-align: center;
+    z-index: 2;
+}
+
+.glow-text {
+    font-family: var(--font-main);
+    font-size: 12vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 20px;
+    margin-bottom: 0.5rem;
+
+    /* Animated Gradient Text */
+    background: linear-gradient(to right,
+            #fff 20%,
+            var(--accent-color) 40%,
+            #7000ff 60%,
+            var(--accent-color) 80%,
+            #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Glowing Animation */
+    animation: shine 4s linear infinite, halo 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.3));
+}
+
+#typewriter-text {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    min-height: 1.5rem;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+@keyframes halo {
+    from {
+        filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.2));
+    }
+
+    to {
+        filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.6));
+    }
+}
+
+#typewriter-text::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.scroll-indicator {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 3s, bounce 2s infinite 3s;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 0.6;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* App Container Transitions */
+#app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    /* Above welcome */
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
+}
+
+#app-container.initial-hidden {
+    transform: translateY(100vh);
+    /* Start BELOW the screen */
+    opacity: 0;
+    pointer-events: none;
+}
+
+#app-container.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Static Starfield for Welcome Screen */
+#welcome-screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.5;
+    animation: drift 100s linear infinite;
+}
+
+@keyframes drift {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 1000px;
+    }
+}
+
+header {
+    pointer-events: auto;
+}
+
+h1 {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    letter-spacing: -2px;
+    font-weight: 700;
+}
+
+.highlight {
+    color: var(--accent-color);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: 0.2rem;
+    font-family: var(--font-mono);
+}
+
+/* Tooltip */
+#tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 4px 8px;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    pointer-events: none;
+    transform: translate(-50%, -150%);
+    transition: opacity 0.2s;
+}
+
+#tooltip.hidden {
+    opacity: 0;
+}
+
+/* Info Panel - Refactored for Plain Text Bottom Layout */
+#info-panel {
+    pointer-events: auto;
+    width: 90%;
+    max-width: 1000px;
+    background: transparent;
+    /* No Card Background */
+    backdrop-filter: none;
+    border: none;
+    /* No Border */
+    padding: 0;
+    margin: 0 auto;
+
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    /* Ensure text shadow for readability over video/space */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+#info-panel.hidden {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.panel-header {
+    border-bottom: none;
+    margin-bottom: 0.5rem;
+}
+
+#panel-title {
+    font-size: 3rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+#panel-type {
+    display: none;
+    /* Hide type for cleaner look */
+}
+
+.panel-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    font-weight: 300;
+}
+
+/* Hide Stats Grid for purely descriptive view, or minimalize */
+.stats-grid {
+    display: none;
+}
+
+#close-panel-btn {
+    display: none;
+    /* User can click empty space to close */
+}
+
+#detail-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    visibility: hidden;
+}
+
+#detail-section.visible {
+    transform: translateY(0);
+    visibility: visible;
+}
+
+#detail-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+}
+
+.detail-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(0, 0, 0, 0.5), #050505 100%);
+    z-index: 1;
+}
+
+.detail-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    padding: 2rem;
+}
+
+#detail-title {
+    font-size: 4rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+    font-weight: 300;
+}
+
+#detail-desc {
+    font-size: 1.15rem;
+    line-height: 2;
+    color: #e0e0e0;
+    font-weight: 300;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: justify;
+    column-count: 1;
+    margin-top: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-btn {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: auto !important;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--accent-color);
+    color: #000;
+    transform: scale(1.1);
+}
+
+.close-btn {
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+.arrow-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.left-arrow {
+    left: 2rem;
+}
+
+.right-arrow {
+    right: 2rem;
+}

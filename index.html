@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsoSolar - Interactive Isometric Solar System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <h1 id="welcome-title" class="glow-text">ORBITO</h1>
+            <p id="typewriter-text"></p>
+            <div class="scroll-indicator">
+                <span>Scroll to Explore</span>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="initial-hidden">
+        <canvas id="solar-canvas"></canvas>
+
+        <div id="ui-layer">
+            <header>
+                <h1>ISO<span class="highlight">SOLAR</span></h1>
+                <div class="subtitle">System Visualization</div>
+            </header>
+
+            <div id="tooltip" class="hidden">Planet Name</div>
+        </div>
+    </div>
+
+    <!-- New Detail Section -->
+    <section id="detail-section">
+        <video id="detail-bg-video" loop muted playsinline></video>
+        <div class="detail-overlay"></div>
+
+        <button id="close-detail-btn" class="nav-btn close-btn">✕</button>
+        <button id="prev-planet-btn" class="nav-btn arrow-btn left-arrow">‹</button>
+        <button id="next-planet-btn" class="nav-btn arrow-btn right-arrow">›</button>
+
+        <div class="detail-content">
+            <h2 id="detail-title"></h2>
+            <p id="detail-desc"></p>
+        </div>
+    </section>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
