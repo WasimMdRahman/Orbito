@@ -386,7 +386,9 @@ class SolarSystem {
         if (body.backgroundVideo) {
             video.src = body.backgroundVideo;
             video.load();
-            video.play().catch(() => { });
+            video.play().catch(err => {
+                console.warn(`Failed to play video for ${body.name}:`, err);
+            });
         }
         document.getElementById('detail-section').classList.add('visible');
     }

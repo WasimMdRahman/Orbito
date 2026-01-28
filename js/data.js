@@ -19,7 +19,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '0 AU',
             orbitSpeed: '0 km/s'
         },
-        backgroundVideo: 'videos/sun.mp4'
+        backgroundVideo: '/videos/sun.mp4'
     },
     {
         id: 'mercury',
@@ -36,7 +36,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '0.39 AU',
             orbitSpeed: '47.87 km/s'
         },
-        backgroundVideo: 'videos/mercury.mp4'
+        backgroundVideo: '/videos/mercury.mp4'
     },
     {
         id: 'venus',
@@ -53,7 +53,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '0.72 AU',
             orbitSpeed: '35.02 km/s'
         },
-        backgroundVideo: 'videos/venus.mp4'
+        backgroundVideo: '/videos/venus.mp4'
     },
     {
         id: 'earth',
@@ -70,7 +70,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '1.00 AU',
             orbitSpeed: '29.78 km/s'
         },
-        backgroundVideo: 'videos/earth.mp4'
+        backgroundVideo: '/videos/earth.mp4'
     },
     {
         id: 'mars',
@@ -87,7 +87,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '1.52 AU',
             orbitSpeed: '24.07 km/s'
         },
-        backgroundVideo: 'videos/mars.mp4'
+        backgroundVideo: '/videos/mars.mp4'
     },
     {
         id: 'jupiter',
@@ -104,7 +104,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '5.20 AU',
             orbitSpeed: '13.07 km/s'
         },
-        backgroundVideo: 'videos/jupiter.mp4'
+        backgroundVideo: '/videos/jupiter.mp4'
     },
     {
         id: 'saturn',
@@ -125,7 +125,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '9.58 AU',
             orbitSpeed: '9.68 km/s'
         },
-        backgroundVideo: 'videos/saturn.mp4'
+        backgroundVideo: '/videos/saturn.mp4'
     },
     {
         id: 'uranus',
@@ -142,7 +142,7 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '19.22 AU',
             orbitSpeed: '6.80 km/s'
         },
-        backgroundVideo: 'videos/uranus.mp4'
+        backgroundVideo: '/videos/uranus.mp4'
     },
     {
         id: 'neptune',
@@ -159,6 +159,6 @@ export const SOLAR_SYSTEM_DATA = [
             orbitRadius: '30.05 AU',
             orbitSpeed: '5.43 km/s'
         },
-        backgroundVideo: 'videos/neptune.mp4'
+        backgroundVideo: '/videos/neptune.mp4'
     }
 ];
