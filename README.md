@@ -1,4 +1,4 @@
-# ORBITO 🌌
+# ORBITO 
 ### Interactive Isometric Solar System Visualization
 
 **ORBITO** is a premium, cinematic web-based visualization of our solar system. Built with high-performance HTML5 Canvas and advanced CSS animations, it offers an immersive journey from a striking landing page to the depths of interplanetary space.
@@ -7,7 +7,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - **Cinematic Entry**: A high-impact landing page featuring a massive, glowing **ORBITO** title with animated gradients and a typewriter introduction.
 - **Isometric Projection**: A unique 2:1 isometric view of the solar system, providing a structural yet artistic diagram of planetary orbits.
@@ -23,7 +23,7 @@
 
 ---
 
-## 🚀 Technology Stack
+## Technology Stack
 
 - **Core**: Vanilla JavaScript (ES6+ Module Architecture)
 - **Graphics**: HTML5 Canvas API for high-performance 2D rendering
@@ -36,7 +36,7 @@
 
 ---
 
-## 🛠️ Installation & Usage
+## Installation & Usage
 
 1. **Clone the project** to your local machine.
 2. Ensure you have the following directory structure:
@@ -56,7 +56,7 @@
 
 ---
 
-## 📖 Control Guide
+## Control Guide
 
 - **Scroll Down / Click**: Enter the system from the Welcome Screen.
 - **Mouse Drag**: Pan the camera around the solar system.
@@ -66,10 +66,7 @@
 
 ---
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 ORBITO was designed to be more than just a data tool; it's a visual experience. The use of **dark mode aesthetics**, **neon accents**, and **dynamic lighting** on the canvas ensures that the user is wowed at first glance. The transition from the minimalist landing page to the detailed simulation is designed to be seamless and satisfying.
 
----
-
-*Designed and Developed with ❤️ for Space Enthusiasts.*
